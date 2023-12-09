@@ -23,6 +23,8 @@ def run_command(command):
         moveUp()
     if command == 3:
         moveDown(current_dir='')
+    if command == 4:
+        print(countFiles(path=''))
 
 def moveUp():
     os.chdir('../')
@@ -39,6 +41,16 @@ def moveDown(current_dir):
             print(RU.MISTAKE_3)
         except OSError:
             print(RU.MISTAKE_3)
+def countFiles(path):
+    case = os.listdir()
+    count = 0
+    for i in range(len(case)):
+        if os.path.isfile(case[i]):
+            count += 1
+        elif os.path.isdir(case[i]):
+            count += countFiles(os.chdir(case[i]))
+    return count
+
 
 
 
