@@ -1,7 +1,6 @@
 import os
 import RU_LOCAL as RU
 
-
 def accept_command():
     flag = False
     while not flag:
@@ -28,6 +27,9 @@ def run_command(command):
         print(countFiles(path=''))
     if command == 5:
         print(countBites(path=''))
+    if command == 6:
+        target = input(RU.FILENAME)
+        findFiles(target, path='')
 
 
 def moveUp():
@@ -62,12 +64,29 @@ def countFiles(path):
 def countBites(path):
     case = os.listdir()
     count = 0
+    try:
+        for i in range(len(case)):
+            if os.path.isdir(case[i]):
+                count += countBites(os.chdir(case[i]))
+            else:
+                count += os.path.getsize(case[i])
+    except OSError:
+        count = count
+    return count
+
+def findFiles(target, path):
+    case = os.listdir()
+    flag = 0
     for i in range(len(case)):
         if os.path.isdir(case[i]):
-            count += countBites(os.chdir(case[i]))
+            findFiles(target, os.chdir(case[i]))
         else:
-            count += os.path.getsize(case[i])
-    return count
+            if target in case[i]:
+                print(os.path.abspath(case[i]))
+                flag = 1
+    if flag == 0:
+        print(RU.NOFILE)
+
 
 
 def main():
