@@ -1,7 +1,12 @@
 import os
 import RU_LOCAL as RU
 
+
 def accept_command():
+    '''
+    Function to check the correctness of the command
+    :return: if command is correct then return command, else return error message
+    '''
     flag = False
     while not flag:
         command = input(RU.QUESTION_1)
@@ -17,26 +22,40 @@ def accept_command():
 
 
 def run_command(command):
+    '''
+    Function determines by the command number which function to call
+    :param command: number of command
+    :return: None
+    '''
     if command == 1:
         print(os.listdir())
     if command == 2:
         moveUp()
     if command == 3:
-        moveDown(current_dir='')
+        moveDown('')
     if command == 4:
-        print(countFiles(path=''))
+        print(countFiles(''))
     if command == 5:
-        print(countBites(path=''))
+        print(countBites(''))
     if command == 6:
         target = input(RU.FILENAME)
-        findFiles(target, path='')
+        findFiles(target, '')
 
 
 def moveUp():
+    '''
+    Function for moving up a catalog level
+    :return: None
+    '''
     os.chdir('../')
 
 
 def moveDown(current_dir):
+    '''
+    The function requests the name of the subdirectory, and if it is correct, it goes to this subdirectory
+    :param current_dir: current file directory
+    :return: None
+    '''
     flag = False
     while not flag:
         print(os.listdir())
@@ -51,6 +70,11 @@ def moveDown(current_dir):
 
 
 def countFiles(path):
+    '''
+    The function counts the number of files in the directory
+    :param path: directory in which to count the number of files
+    :return: count of files
+    '''
     case = os.listdir()
     count = 0
     for i in range(len(case)):
@@ -62,6 +86,11 @@ def countFiles(path):
 
 
 def countBites(path):
+    '''
+    The function calculates the total volume in bytes of all files in the directory
+    :param path: directory in which to count the total volume in bytes of all files
+    :return: total volume in bytes of all files
+    '''
     case = os.listdir()
     count = 0
     try:
@@ -74,7 +103,14 @@ def countBites(path):
         count = count
     return count
 
+
 def findFiles(target, path):
+    '''
+    The function generates a list of paths to files whose names contain target
+    :param target: part of the file name
+    :param path: directory in which to generate a list of paths to files
+    :return: None
+    '''
     case = os.listdir()
     flag = 0
     for i in range(len(case)):
@@ -88,15 +124,18 @@ def findFiles(target, path):
         print(RU.NOFILE)
 
 
-
 def main():
+    '''
+    A function that displays the path to the current directory and menu
+    :return: None
+    '''
     while True:
         print(os.getcwd())
         print(RU.MENU)
         command = accept_command()
         run_command(command)
         if command == 7:
-            print('Работа программы завершена.')
+            print(RU.FINAL)
             break
 
 
