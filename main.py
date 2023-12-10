@@ -16,6 +16,7 @@ def accept_command():
         except ValueError:
             print(RU.MISTAKE_2)
 
+
 def run_command(command):
     if command == 1:
         print(os.listdir())
@@ -26,8 +27,10 @@ def run_command(command):
     if command == 4:
         print(countFiles(path=''))
 
+
 def moveUp():
     os.chdir('../')
+
 
 def moveDown(current_dir):
     flag = False
@@ -36,22 +39,26 @@ def moveDown(current_dir):
         current_dir = input(RU.QUESTION_2)
         try:
             os.chdir(current_dir)
-            flag= True
+            flag = True
         except FileNotFoundError:
             print(RU.MISTAKE_3)
         except OSError:
             print(RU.MISTAKE_3)
+
+
 def countFiles(path):
     case = os.listdir()
     count = 0
+    count_files = 0
+    count_dirs = 0
     for i in range(len(case)):
         if os.path.isfile(case[i]):
-            count += 1
+            count_files += 1
         elif os.path.isdir(case[i]):
-            count += countFiles(os.chdir(case[i]))
+            count_dirs += countFiles(os.chdir(case[i]))
+            print(count_dirs)
+        count = count_files + count_dirs
     return count
-
-
 
 
 def main():
