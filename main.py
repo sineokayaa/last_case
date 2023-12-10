@@ -26,6 +26,8 @@ def run_command(command):
         moveDown(current_dir='')
     if command == 4:
         print(countFiles(path=''))
+    if command == 5:
+        print(countBites(path=''))
 
 
 def moveUp():
@@ -49,15 +51,22 @@ def moveDown(current_dir):
 def countFiles(path):
     case = os.listdir()
     count = 0
-    count_files = 0
-    count_dirs = 0
     for i in range(len(case)):
-        if os.path.isfile(case[i]):
-            count_files += 1
-        elif os.path.isdir(case[i]):
-            count_dirs += countFiles(os.chdir(case[i]))
-            print(count_dirs)
-        count = count_files + count_dirs
+        if os.path.isdir(case[i]):
+            count += countFiles(os.chdir(case[i]))
+        else:
+            count += 1
+    return count
+
+
+def countBites(path):
+    case = os.listdir()
+    count = 0
+    for i in range(len(case)):
+        if os.path.isdir(case[i]):
+            count += countBites(os.chdir(case[i]))
+        else:
+            count += os.path.getsize(case[i])
     return count
 
 
