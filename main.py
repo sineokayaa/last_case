@@ -1,7 +1,7 @@
 '''
 Group:
 Varfolomeeva Victoria: 95
-Sineokaya Anastasia:
+Sineokaya Anastasia: 92
 '''
 import os
 import RU_LOCAL as RU
